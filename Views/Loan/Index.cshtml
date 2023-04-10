@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Loan>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Book List</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		table {
+			border-collapse: collapse;
+			width: 100%;
+		}
+		
+		th, td {
+			text-align: left;
+			padding: 8px;
+			border: 1px solid #ddd;
+		}
+		
+		tr:nth-child(even) {
+			background-color: #f2f2f2;
+		}
+		
+		th {
+			background-color: #4CAF50;
+			color: white;
+		}
+		
+		button {
+			background-color: #4CAF50;
+			color: white;
+			border: none;
+			padding: 8px 16px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 14px;
+			margin: 4px 2px;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<h1>Loans</h1>
+	<table>
+		<thead>
+			<tr>
+				<th>Title</th>
+				<th>Author</th>
+				<th>ISBN</th>
+				<th>Loan date</th>
+				<th>Due date</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach(var item in Model)
+			{
+				<tr>
+					<td>@item.Book.Title</td>
+					<td>@item.Book.Author</td>
+					<td>@item.Book.ISBN</td>
+					<td>@item.LoanDate</td>
+					<td>@item.DueDate</td>
+					<td>
+						<form method="post" asp-controller="Loan" asp-action="Delete" asp-route-isbn="@item.Book.ISBN">
+							<button type="submit">Hand in</button>
+						</form>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</body>
+</html>
